@@ -2,13 +2,28 @@ import React from 'react/addons';
 import { ListGroup, ListGroupItem, Grid, Row, Input } from 'react-bootstrap';
 
 class ChannelSearch extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { searchQuery: '' };
+    this.changeSearchQuery = this.changeSearchQuery.bind(this);
+  }
+
+  changeSearchQuery(ev) {
+
+  }
+
   render() {
     let { channels } = this.props;
 
     return (
       <Grid fluid={true}>
         <Row>
-          <Input type="text" placeholder="Search channels…" bsSize="large" />
+          <Input type="text" 
+                 placeholder="Search channels…" 
+                 bsSize="large"
+                 value={this.state.searchQuery}
+                 onChange={this.changeSearchQuery} />
           <Channels channels={channels} />
         </Row>
       </Grid>
