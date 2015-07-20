@@ -1,8 +1,19 @@
 import React from 'react/addons';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 class ChannelSearch extends React.Component {
   render() {
-    return null;
+    let { channels } = this.props;
+
+    return (
+      <ListGroup>
+        {channels.map(channel =>
+          <ListGroupItem key={channel}>
+            {channel}
+          </ListGroupItem>
+        )}
+      </ListGroup>
+    );
   }  
 }
 
