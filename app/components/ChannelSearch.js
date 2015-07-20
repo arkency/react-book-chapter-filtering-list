@@ -6,6 +6,16 @@ class ChannelSearch extends React.Component {
     let { channels } = this.props;
 
     return (
+      <Channels channels={channels} />
+    );
+  }  
+}
+
+class Channels extends React.Component {
+  render() {
+    let { channels } = this.props;
+
+    return (
       <ListGroup>
         {channels.map(channel =>
           <ListGroupItem key={channel} href={`#${channel}`}>
@@ -13,8 +23,8 @@ class ChannelSearch extends React.Component {
           </ListGroupItem>
         )}
       </ListGroup>
-    );
-  }  
+    );    
+  }
 }
 
 ChannelSearch.defaultProps = {
