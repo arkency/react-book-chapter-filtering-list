@@ -8,7 +8,7 @@ class ChannelSearch extends React.Component {
     return (
       <ListGroup>
         {channels.map(channel =>
-          <ListGroupItem key={channel}>
+          <ListGroupItem key={channel} href={`#${channel}`}>
             {channel}
           </ListGroupItem>
         )}
