@@ -10,7 +10,7 @@ class ChannelSearch extends React.Component {
   }
 
   changeSearchQuery(ev) {
-
+    this.setState({ searchQuery: ev.target.value });
   }
 
   render() {
