@@ -10,8 +10,8 @@ class ChannelSearch extends React.Component {
     this.filteredChannels  = this.filteredChannels.bind(this);
   }
 
-  changeSearchQuery(ev) {
-    this.setState({ searchQuery: ev.target.value });
+  changeSearchQuery(newSearchQuery) {
+    this.setState({ searchQuery: newSearchQuery });
   }
 
   filteredChannels() {
@@ -24,19 +24,42 @@ class ChannelSearch extends React.Component {
   }
 
   render() {  
+    let { searchQuery } = this.state;
+
     return (
       <Grid fluid={true}>
         <Row>
-          <Input type="text" 
-                 placeholder="Search channels…" 
-                 bsSize="large"
-                 value={this.state.searchQuery}
-                 onChange={this.changeSearchQuery} />
+          <ChannelSearchInput searchQuery={searchQuery} 
+                              onSearchQueryChanged={this.changeSearchQuery} />
           <Channels channels={this.filteredChannels()} />
         </Row>
       </Grid>
     );
   }  
+}
+
+class ChannelSearchInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSearchQueryChange = this.handleSearchQueryChange.bind(this);
+  } 
+
+  handleSearchQueryChange(ev) {
+    let { onSearchQueryChanged } = this.props;
+    onSearchQueryChanged(ev.target.value)
+  }
+
+  render() {    
+    let { searchQuery } = this.props;
+
+    return (
+      <Input type="text" 
+         placeholder="Search channels…" 
+         bsSize="large"
+         value={searchQuery}
+         onChange={this.handleSearchQueryChange} />
+    );
+  }
 }
 
 class Channels extends React.Component {
