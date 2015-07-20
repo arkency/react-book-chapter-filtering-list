@@ -1,12 +1,16 @@
 import React from 'react/addons';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Grid, Row } from 'react-bootstrap';
 
 class ChannelSearch extends React.Component {
   render() {
     let { channels } = this.props;
 
     return (
-      <Channels channels={channels} />
+      <Grid fluid={true}>
+        <Row>
+          <Channels channels={channels} />
+        </Row>
+      </Grid>
     );
   }  
 }
