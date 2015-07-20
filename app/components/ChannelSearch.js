@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import { ListGroup, ListGroupItem, Grid, Row } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Grid, Row, Input } from 'react-bootstrap';
 
 class ChannelSearch extends React.Component {
   render() {
@@ -8,6 +8,7 @@ class ChannelSearch extends React.Component {
     return (
       <Grid fluid={true}>
         <Row>
+          <Input type="text" placeholder="Search channels…" bsSize="large" />
           <Channels channels={channels} />
         </Row>
       </Grid>
