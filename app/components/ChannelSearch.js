@@ -1,5 +1,6 @@
 import React from 'react/addons';
-import { ListGroup, ListGroupItem, Grid, Row, Input } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, 
+         Grid, Row, Input, Well } from 'react-bootstrap';
 
 class ChannelSearch extends React.Component {
   constructor(props) {
@@ -24,14 +25,18 @@ class ChannelSearch extends React.Component {
   }
 
   render() {  
-    let { searchQuery } = this.state;
+    let { searchQuery } = this.state,
+        channels = this.filteredChannels();
 
     return (
       <Grid fluid={true}>
         <Row>
           <ChannelSearchInput searchQuery={searchQuery} 
                               onSearchQueryChanged={this.changeSearchQuery} />
-          <Channels channels={this.filteredChannels()} />
+          {channels.length === 0 ? 
+            <NoValidChannels searchQuery={searchQuery} /> :
+            <Channels channels={channels} />
+          }
         </Row>
       </Grid>
     );
@@ -75,6 +80,16 @@ class Channels extends React.Component {
         )}
       </ListGroup>
     );    
+  }
+}
+
+class NoValidChannels extends React.Component {
+  render() {
+    let { searchQuery } = this.props;
+
+    return (<Well>There are no channels matching 
+                  your query <strong>"{searchQuery}"</strong>.
+            </Well>);
   }
 }
 
