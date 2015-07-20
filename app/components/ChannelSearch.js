@@ -6,4 +6,18 @@ class ChannelSearch extends React.Component {
   }  
 }
 
+ChannelSearch.defaultProps = {
+  channels: [
+    "reactjs",
+    "general",
+    "random",
+    "flux",
+    "relay",
+    "immutablejs",
+    "flow",
+    "webpack",
+    "babel"
+  ]
+};
+
 export default ChannelSearch;
