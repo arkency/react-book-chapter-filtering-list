@@ -1,5 +1,5 @@
-import React from 'react/addons';
-import { ListGroup, ListGroupItem, 
+import React from 'react';
+import { ListGroup, ListGroupItem,
          Grid, Row, Input, Well } from 'react-bootstrap';
 
 class ChannelSearch extends React.Component {
@@ -24,42 +24,42 @@ class ChannelSearch extends React.Component {
     });
   }
 
-  render() {  
+  render() {
     let { searchQuery } = this.state,
         channels = this.filteredChannels();
 
     return (
       <Grid fluid={true}>
         <Row>
-          <ChannelSearchInput searchQuery={searchQuery} 
+          <ChannelSearchInput searchQuery={searchQuery}
                               onSearchQueryChanged={this.changeSearchQuery} />
-          {channels.length === 0 ? 
+          {channels.length === 0 ?
             <NoValidChannels searchQuery={searchQuery} /> :
             <Channels channels={channels} />
           }
         </Row>
       </Grid>
     );
-  }  
+  }
 }
 
 class ChannelSearchInput extends React.Component {
   constructor(props) {
     super(props);
     this.handleSearchQueryChange = this.handleSearchQueryChange.bind(this);
-  } 
+  }
 
   handleSearchQueryChange(ev) {
     let { onSearchQueryChanged } = this.props;
     onSearchQueryChanged(ev.target.value)
   }
 
-  render() {    
+  render() {
     let { searchQuery } = this.props;
 
     return (
-      <Input type="text" 
-         placeholder="Search channels…" 
+      <Input type="text"
+         placeholder="Search channels…"
          bsSize="large"
          value={searchQuery}
          onChange={this.handleSearchQueryChange} />
@@ -79,7 +79,7 @@ class Channels extends React.Component {
           </ListGroupItem>
         )}
       </ListGroup>
-    );    
+    );
   }
 }
 
@@ -87,7 +87,7 @@ class NoValidChannels extends React.Component {
   render() {
     let { searchQuery } = this.props;
 
-    return (<Well>There are no channels matching 
+    return (<Well>There are no channels matching
                   your query <strong>"{searchQuery}"</strong>.
             </Well>);
   }
