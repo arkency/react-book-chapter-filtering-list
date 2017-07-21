@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListGroup, ListGroupItem,
-         Grid, Row, Input, Well } from 'react-bootstrap';
+         Grid, Row, FormControl, FormGroup, Well } from 'react-bootstrap';
 
 class ChannelSearch extends React.Component {
   constructor(props) {
@@ -58,11 +58,13 @@ class ChannelSearchInput extends React.Component {
     let { searchQuery } = this.props;
 
     return (
-      <Input type="text"
-         placeholder="Search channels…"
-         bsSize="large"
-         value={searchQuery}
-         onChange={this.handleSearchQueryChange} />
+      <FormGroup>
+        <FormControl type="text"
+           placeholder="Search channels…"
+           bsSize="large"
+           value={searchQuery}
+           onChange={this.handleSearchQueryChange} />
+       </FormGroup>
     );
   }
 }
