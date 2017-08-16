@@ -1,14 +1,21 @@
-import React from 'react';
-import { ListGroup, ListGroupItem,
-         Grid, Row, FormControl, FormGroup, Well } from 'react-bootstrap';
+import React from "react";
+import {
+  ListGroup,
+  ListGroupItem,
+  Grid,
+  Row,
+  FormControl,
+  FormGroup,
+  Well
+} from "react-bootstrap";
 
 class ChannelSearch extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { searchQuery: '' };
+    this.state = { searchQuery: "" };
     this.changeSearchQuery = this.changeSearchQuery.bind(this);
-    this.filteredChannels  = this.filteredChannels.bind(this);
+    this.filteredChannels = this.filteredChannels.bind(this);
   }
 
   changeSearchQuery(newSearchQuery) {
@@ -16,8 +23,8 @@ class ChannelSearch extends React.Component {
   }
 
   filteredChannels() {
-    let { channels }    = this.props,
-        { searchQuery } = this.state;
+    let { channels } = this.props,
+      { searchQuery } = this.state;
 
     return channels.filter(channel => {
       return channel.indexOf(searchQuery) === 0;
@@ -26,17 +33,18 @@ class ChannelSearch extends React.Component {
 
   render() {
     let { searchQuery } = this.state,
-        channels = this.filteredChannels();
+      channels = this.filteredChannels();
 
     return (
       <Grid fluid={true}>
         <Row>
-          <ChannelSearchInput searchQuery={searchQuery}
-                              onSearchQueryChanged={this.changeSearchQuery} />
-          {channels.length === 0 ?
-            <NoValidChannels searchQuery={searchQuery} /> :
-            <Channels channels={channels} />
-          }
+          <ChannelSearchInput
+            searchQuery={searchQuery}
+            onSearchQueryChanged={this.changeSearchQuery}
+          />
+          {channels.length === 0
+            ? <NoValidChannels searchQuery={searchQuery} />
+            : <Channels channels={channels} />}
         </Row>
       </Grid>
     );
@@ -51,7 +59,7 @@ class ChannelSearchInput extends React.Component {
 
   handleSearchQueryChange(ev) {
     let { onSearchQueryChanged } = this.props;
-    onSearchQueryChanged(ev.target.value)
+    onSearchQueryChanged(ev.target.value);
   }
 
   render() {
@@ -59,12 +67,14 @@ class ChannelSearchInput extends React.Component {
 
     return (
       <FormGroup>
-        <FormControl type="text"
-           placeholder="Search channels…"
-           bsSize="large"
-           value={searchQuery}
-           onChange={this.handleSearchQueryChange} />
-       </FormGroup>
+        <FormControl
+          type="text"
+          placeholder="Search channels…"
+          bsSize="large"
+          value={searchQuery}
+          onChange={this.handleSearchQueryChange}
+        />
+      </FormGroup>
     );
   }
 }
@@ -89,9 +99,12 @@ class NoValidChannels extends React.Component {
   render() {
     let { searchQuery } = this.props;
 
-    return (<Well>There are no channels matching
-                  your query <strong>"{searchQuery}"</strong>.
-            </Well>);
+    return (
+      <Well>
+        There are no channels matching your query{" "}
+        <strong>"{searchQuery}"</strong>.
+      </Well>
+    );
   }
 }
 
