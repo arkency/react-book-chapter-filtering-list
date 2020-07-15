@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ListGroup,
   ListGroupItem,
@@ -9,103 +9,80 @@ import {
   Well
 } from "react-bootstrap";
 
-class ChannelSearch extends React.Component {
-  constructor(props) {
-    super(props);
+function ChannelSearch(props) {
+  const [searchQuery, updateSearchQuery] = useState("");
 
-    this.state = { searchQuery: "" };
-    this.changeSearchQuery = this.changeSearchQuery.bind(this);
-    this.filteredChannels = this.filteredChannels.bind(this);
+  const changeSearchQuery = newSearchQuery => {
+    updateSearchQuery(newSearchQuery);
   }
 
-  changeSearchQuery(newSearchQuery) {
-    this.setState({ searchQuery: newSearchQuery });
+  const filteredChannels = () => {
+    const { channels } = props;
+    return channels.filter(channel => channel.indexOf(searchQuery) === 0);
   }
 
-  filteredChannels() {
-    let { channels } = this.props,
-      { searchQuery } = this.state;
+  const channels = filteredChannels();
 
-    return channels.filter(channel => {
-      return channel.indexOf(searchQuery) === 0;
-    });
-  }
-
-  render() {
-    let { searchQuery } = this.state,
-      channels = this.filteredChannels();
-
-    return (
-      <Grid fluid={true}>
-        <Row>
-          <ChannelSearchInput
-            searchQuery={searchQuery}
-            onSearchQueryChanged={this.changeSearchQuery}
-          />
-          {channels.length === 0
-            ? <NoValidChannels searchQuery={searchQuery} />
-            : <Channels channels={channels} />}
-        </Row>
-      </Grid>
-    );
-  }
+  return (
+    <Grid fluid={true}>
+      <Row>
+        <ChannelSearchInput
+          searchQuery={searchQuery}
+          onSearchQueryChanged={changeSearchQuery}
+        />
+        {channels.length === 0
+          ? <NoValidChannels searchQuery={searchQuery} />
+          : <Channels channels={channels} />}
+      </Row>
+    </Grid>
+  );
 }
 
-class ChannelSearchInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleSearchQueryChange = this.handleSearchQueryChange.bind(this);
-  }
 
-  handleSearchQueryChange(ev) {
-    let { onSearchQueryChanged } = this.props;
+function ChannelSearchInput(props) {
+  const handleSearchQueryChange = ev => {
+    const { onSearchQueryChanged } = props;
     onSearchQueryChanged(ev.target.value);
   }
 
-  render() {
-    let { searchQuery } = this.props;
+  let { searchQuery } = props;
 
-    return (
-      <FormGroup>
-        <FormControl
-          type="text"
-          placeholder="Search channels…"
-          bsSize="large"
-          value={searchQuery}
-          onChange={this.handleSearchQueryChange}
-        />
-      </FormGroup>
-    );
-  }
+  return (
+    <FormGroup>
+      <FormControl
+        type="text"
+        placeholder="Search channels…"
+        bsSize="large"
+        value={searchQuery}
+        onChange={handleSearchQueryChange}
+      />
+    </FormGroup>
+  );
 }
 
-class Channels extends React.Component {
-  render() {
-    let { channels } = this.props;
+function Channels(props) {
+  const { channels } = props;
 
-    return (
-      <ListGroup>
-        {channels.map(channel =>
-          <ListGroupItem key={channel} href={`#${channel}`}>
-            #{channel}
-          </ListGroupItem>
-        )}
-      </ListGroup>
-    );
-  }
+  return (
+    <ListGroup>
+      {channels.map(channel =>
+        <ListGroupItem key={channel} href={`#${channel}`}>
+          #{channel}
+        </ListGroupItem>
+      )}
+    </ListGroup>
+  );
 }
 
-class NoValidChannels extends React.Component {
-  render() {
-    let { searchQuery } = this.props;
+function NoValidChannels(props) {
+  const { searchQuery } = props;
 
-    return (
-      <Well>
-        There are no channels matching your query{" "}
-        <strong>"{searchQuery}"</strong>.
-      </Well>
-    );
-  }
+  return (
+    <Well>
+      There are no channels matching your query{" "}
+      <strong>"{searchQuery}"</strong>.
+    </Well>
+  );
 }
 
 ChannelSearch.defaultProps = {
